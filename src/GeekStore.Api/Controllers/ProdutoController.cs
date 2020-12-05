@@ -1,4 +1,4 @@
-﻿using Application.Api.ViewModels;
+﻿using GeekStore.Api.ViewModels;
 using AutoMapper;
 using GeekStore.Api.BuildingBlocks.Controllers;
 using GeekStore.Business.Dto_s;
@@ -10,7 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Application.Api.Controllers
+namespace GeekStore.Api.Controllers
 {
     [Route("api/v{version:apiVersion}/produto")]
     public class ProdutoController : MainController

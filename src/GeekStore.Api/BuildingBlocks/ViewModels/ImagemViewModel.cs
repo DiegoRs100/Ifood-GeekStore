@@ -1,4 +1,4 @@
-﻿namespace Application.Api.BuildingBlocks.ViewModels
+﻿namespace GeekStore.Api.BuildingBlocks.ViewModels
 {
     public class ImagemViewModel
     {

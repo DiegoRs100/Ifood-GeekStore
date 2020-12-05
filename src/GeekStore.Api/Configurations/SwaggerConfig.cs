@@ -11,7 +11,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace GeekStore.Api.Configuration
+namespace GeekStore.Api.Configurations
 {
     public static class SwaggerConfig
     {

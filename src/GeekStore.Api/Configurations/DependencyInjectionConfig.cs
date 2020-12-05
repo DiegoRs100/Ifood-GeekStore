@@ -1,4 +1,4 @@
-﻿using Application.Api.BuildingBlocks.Extentions;
+﻿using GeekStore.Api.BuildingBlocks.Extentions;
 using GeekStore.Api.BuildingBlocks;
 using GeekStore.Api.BuildingBlocks.Settings;
 using GeekStore.Business.Interfaces.Repositories;
@@ -15,10 +15,10 @@ using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System;
 using Polly;
-using static GeekStore.Api.Configuration.SwaggerConfig;
+using static GeekStore.Api.Configurations.SwaggerConfig;
 using GeekStore.Core.Settings;
 
-namespace GeekStore.Api.Configuration
+namespace GeekStore.Api.Configurations
 {
     public static class DependencyInjectionConfig
     {

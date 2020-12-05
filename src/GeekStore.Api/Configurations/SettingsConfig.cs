@@ -3,7 +3,7 @@ using GeekStore.Core.Settings;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Application.Api.Configuration
+namespace GeekStore.Api.Configurations
 {
     public static class SettingsConfig
     {

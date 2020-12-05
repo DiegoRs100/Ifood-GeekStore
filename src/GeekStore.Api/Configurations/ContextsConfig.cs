@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace GeekStore.Api.Configuration
+namespace GeekStore.Api.Configurations
 {
     public static class ContextsConfig
     {

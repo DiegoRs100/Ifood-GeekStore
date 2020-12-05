@@ -1,7 +1,7 @@
-﻿using Application.Api.BuildingBlocks.ViewModels;
+﻿using GeekStore.Api.BuildingBlocks.ViewModels;
 using System;
 
-namespace Application.Api.ViewModels
+namespace GeekStore.Api.ViewModels
 {
     public class ProdutoViewModel
     {

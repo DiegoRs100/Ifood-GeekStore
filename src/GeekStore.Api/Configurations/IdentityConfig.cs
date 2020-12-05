@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
-namespace GeekStore.Api.Configuration
+namespace GeekStore.Api.Configurations
 {
     public static class IdentityConfig
     {

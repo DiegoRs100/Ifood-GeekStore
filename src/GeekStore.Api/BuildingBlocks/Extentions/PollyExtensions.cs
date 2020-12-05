@@ -4,7 +4,7 @@ using Polly.Retry;
 using System;
 using System.Net.Http;
 
-namespace Application.Api.BuildingBlocks.Extentions
+namespace GeekStore.Api.BuildingBlocks.Extentions
 {
     public static class PollyExtensions
     {

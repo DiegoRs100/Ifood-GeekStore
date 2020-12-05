@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Net.Http.Headers;
 
-namespace GeekStore.Api.Configuration
+namespace GeekStore.Api.Configurations
 {
     public static class ApiConfig
     {

@@ -1,4 +1,4 @@
-﻿using Application.Api.BuildingBlocks.ViewModels;
+﻿using GeekStore.Api.BuildingBlocks.ViewModels;
 using AutoMapper;
 using GeekStore.Api.BuildingBlocks.Controllers;
 using GeekStore.Core.Dto_s;
@@ -6,7 +6,7 @@ using GeekStore.Core.Interfaces.BuildingBlocks;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
-namespace Application.Api.BuildingBlocks.Controllers
+namespace GeekStore.Api.BuildingBlocks.Controllers
 {
     [Route("api/v{version:apiVersion}/Authentication")]
     public class AuthenticationController : MainController

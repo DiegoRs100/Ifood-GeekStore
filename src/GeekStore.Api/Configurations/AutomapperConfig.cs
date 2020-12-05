@@ -1,10 +1,10 @@
-﻿using Application.Api.BuildingBlocks.ViewModels;
-using Application.Api.ViewModels;
+﻿using GeekStore.Api.BuildingBlocks.ViewModels;
+using GeekStore.Api.ViewModels;
 using AutoMapper;
 using GeekStore.Business.Dto_s;
 using GeekStore.Core.Dto_s;
 
-namespace GeekStore.Api.Configuration
+namespace GeekStore.Api.Configurations
 {
     public class AutomapperConfig : Profile
     {
