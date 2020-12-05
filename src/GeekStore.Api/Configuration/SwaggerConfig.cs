@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using GeekStore.Api.BuildingBlocks.Settings;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,11 +17,11 @@ namespace GeekStore.Api.Configuration
     {
         public static IServiceCollection AddSwaggerConfig(this IServiceCollection services)
         {
-            services.AddSwaggerGen(c =>
+            services.AddSwaggerGen(options =>
             {
-                c.OperationFilter<SwaggerDefaultValues>();
+                options.OperationFilter<SwaggerDefaultValues>();
 
-                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     Description = "Insira o token JWT desta maneira: Bearer {seu token}",
                     Name = "Authorization",
@@ -30,7 +31,7 @@ namespace GeekStore.Api.Configuration
                     Type = SecuritySchemeType.ApiKey
                 });
 
-                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                options.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {
                     {
                         new OpenApiSecurityScheme
@@ -51,17 +52,14 @@ namespace GeekStore.Api.Configuration
 
         public static IApplicationBuilder UseSwaggerConfig(this IApplicationBuilder app, IApiVersionDescriptionProvider provider)
         {
-            app.UseMiddleware<SwaggerAuthorizedMiddleware>();
+            //app.UseMiddleware<SwaggerAuthorizedMiddleware>();
             app.UseSwagger();
 
-            app.UseSwaggerUI(
-                options =>
-                {
-                    foreach (var description in provider.ApiVersionDescriptions)
-                    {
-                        options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
-                    }
-                });
+            app.UseSwaggerUI(options =>
+            {
+                foreach (var description in provider.ApiVersionDescriptions)
+                    options.SwaggerEndpoint($"{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
+            });
 
             return app;
         }
@@ -70,12 +68,16 @@ namespace GeekStore.Api.Configuration
 
         public class ConfigureSwaggerOptions : IConfigureOptions<SwaggerGenOptions>
         {
-            #region Properties
+            #region Injection
 
             private readonly IApiVersionDescriptionProvider provider;
+            private readonly SwaggerSettings _swaggerSettings;
 
-            public ConfigureSwaggerOptions(IApiVersionDescriptionProvider provider) =>
+            public ConfigureSwaggerOptions(IApiVersionDescriptionProvider provider, IOptions<SwaggerSettings> swaggerSettings)
+            {
                 this.provider = provider;
+                _swaggerSettings = swaggerSettings.Value;
+            }
 
             #endregion
 
@@ -85,21 +87,19 @@ namespace GeekStore.Api.Configuration
                     options.SwaggerDoc(description.GroupName, CreateInfoForApiVersion(description));
             }
 
-            private static OpenApiInfo CreateInfoForApiVersion(ApiVersionDescription description)
+            private OpenApiInfo CreateInfoForApiVersion(ApiVersionDescription description)
             {
                 var info = new OpenApiInfo()
                 {
-                    Title = "API - Prodança",
+                    Title = _swaggerSettings.Title,
                     Version = description.ApiVersion.ToString(),
-                    Description = "Api responsável pelo backend do sistema Prodança.",
-                    Contact = new OpenApiContact() { Name = "Diego Silva", Email = "diego.rs10@hotmail.com" },
-                    License = new OpenApiLicense() { Name = "MIT", Url = new Uri("https://opensource.org/licenses/MIT") }
+                    Description = _swaggerSettings.Description,
+                    Contact = new OpenApiContact() { Name = _swaggerSettings.ContactName, Email = _swaggerSettings.ContactEmail },
+                    License = new OpenApiLicense() { Name = _swaggerSettings.LicenseName, Url = new Uri(_swaggerSettings.LicenseUrl) }
                 };
 
                 if (description.IsDeprecated)
-                {
-                    info.Description += " Esta versão está obsoleta!";
-                }
+                    info.Description += " (Esta versão está obsoleta!)";
 
                 return info;
             }

@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Application.Api.Controllers
 {
-    [Route("api/produto")]
+    [Route("api/v{version:apiVersion}/produto")]
     public class ProdutoController : MainController
     {
         #region Injection
@@ -21,11 +21,11 @@ namespace Application.Api.Controllers
         private readonly IProdutoRepository _produtoRepository;
         private readonly IMapper _mapper;
 
-        public ProdutoController(ISessionApp appSession,
-                                INotificationService notificador,
-                                IMapper mapper,
-                                IProdutoService produtoService,
-                                IProdutoRepository produtoRepository) : base(notificador, appSession)
+        public ProdutoController (ISessionApp appSession,
+                                  INotificationService notificador,
+                                  IMapper mapper,
+                                  IProdutoService produtoService,
+                                  IProdutoRepository produtoRepository) : base(notificador, appSession)
         {
             _produtoRepository = produtoRepository;
             _produtoService = produtoService;

@@ -21,6 +21,11 @@ namespace GeekStore.Api.Configuration
 
         private void AddBuildingBlocksMappings()
         {
+            CreateMap<UsuarioLogin, UsuarioLoginViewModel>().ReverseMap();
+            CreateMap<UserToken, UserTokenViewModel>().ReverseMap();
+            CreateMap<Claim, ClaimViewModel>().ReverseMap();
+            CreateMap<LoginResponse, LoginResponseViewModel>().ReverseMap();
+
             CreateMap<Imagem, ImagemViewModel>().ReverseMap();
         }
     }
