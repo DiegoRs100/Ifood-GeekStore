@@ -12,7 +12,7 @@ namespace GeekStore.Core.Base
     {
         #region Injection
 
-        private readonly INotificationService _notificador;
+        protected readonly INotificationService _notificador;
         private readonly IRepositoryBase<TEntity> _entityRepository;
 
         protected ServiceBase(INotificationService notificador, IRepositoryBase<TEntity> entityRepository)
@@ -28,13 +28,13 @@ namespace GeekStore.Core.Base
             if (!ExecutarValidacao(new TValidation(), entity))
                 return null;
 
-            if (_entityRepository.ObterPorId(entity.Id) == null)
+            if (_entityRepository.ObterPorId(entity.Id).Result?.Ativo != true)
             {
                 Notificar("Registro inexistente.");
                 return null;
             }
 
-            await _entityRepository.UpdateAndSave(entity).ConfigureAwait(false);
+            await _entityRepository.UpdateAndSave(entity);
             return entity;
         }
 
@@ -43,13 +43,13 @@ namespace GeekStore.Core.Base
             if (!ExecutarValidacao(new TValidation(), entity))
                 return null;
 
-            await _entityRepository.InsertAndSave(entity).ConfigureAwait(false);
+            await _entityRepository.InsertAndSave(entity);
             return entity;
         }
 
         public virtual async Task<bool> Remover(TEntity entity)
         {
-            await _entityRepository.DeleteAndSave(entity).ConfigureAwait(false);
+            await _entityRepository.DeleteAndSave(entity);
             return true;
         }
 

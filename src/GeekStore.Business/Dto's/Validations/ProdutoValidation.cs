@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using GeekStore.Business.Dto_s;
 
 namespace GeekStore.Business.Dto_s.Validations
 {

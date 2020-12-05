@@ -13,12 +13,20 @@ namespace GeekStore.Data.Mappings
             builder.HasKey(x => x.Id);
 
             ConfigureProperties(builder);
+            ConfigureRelationships(builder);
         }
 
         protected override void ConfigureProperties(EntityTypeBuilder<Produto> builder)
         {
             builder.Property(x => x.Descricao)
                 .HasColumnType("VARCHAR(100)");
+        }
+
+        protected override void ConfigureRelationships(EntityTypeBuilder<Produto> builder)
+        {
+            builder.HasOne(x => x.Imagem)
+                .WithOne()
+                .HasForeignKey<Produto>(x => x.IdImagem);
         }
     }
 }

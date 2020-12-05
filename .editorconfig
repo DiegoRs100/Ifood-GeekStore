@@ -1,0 +1,10 @@
+﻿[*.cs]
+
+# RCS1090: Add call to 'ConfigureAwait' (or vice versa).
+dotnet_diagnostic.RCS1090.severity = none
+
+# S3925: "ISerializable" should be implemented correctly
+dotnet_diagnostic.S3925.severity = none
+
+# RCS1170: Use read-only auto-implemented property.
+dotnet_diagnostic.RCS1170.severity = none

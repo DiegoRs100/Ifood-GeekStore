@@ -2,7 +2,7 @@
 {
     public class LoginResponse
     {
-        public bool Sucess { get; set; }
+        public bool Success { get; set; }
         public string Error { get; set; }
     }
 }

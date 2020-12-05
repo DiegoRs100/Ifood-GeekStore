@@ -11,12 +11,6 @@ namespace GeekStore.Api.Configuration
     {
         public static IServiceCollection AddIdentityConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
-            //services.AddDefaultIdentity<IdentityUser>()
-            //    .AddRoles<IdentityRole>()
-            //    .AddEntityFrameworkStores<AuthDbContext>()
-            //    .AddErrorDescriber<IdentityExtentions>()
-            //    .AddDefaultTokenProviders();
-
             #region Jwt
 
             var appSettingsSection = configuration.GetSection("AppSettings");

@@ -7,7 +7,7 @@ namespace GeekStore.Core.Extentions.Exceptions
     {
         #region Properties
 
-        public HttpStatusCode StatusCode;
+        public readonly HttpStatusCode StatusCode;
 
         #endregion
 

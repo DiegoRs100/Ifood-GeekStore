@@ -8,7 +8,7 @@ namespace GeekStore.Core.Dto_s
 
         public Guid Id { get; private set; }
 
-        public DateTime DataInclusao { get; }
+        public DateTime DataInclusao { get; private set; }
         public Guid IdUsuarioInclusao { get; private set; }
 
         public DateTime? DataAlteracao { get; private set; }

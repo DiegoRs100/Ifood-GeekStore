@@ -4,6 +4,8 @@ using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Net.Http.Headers;
+using System;
 
 namespace GeekStore.Core.Extentions
 {
@@ -12,6 +14,14 @@ namespace GeekStore.Core.Extentions
         public static StringContent ToStringContent(this object obj)
         {
             return new StringContent(JsonSerializer.Serialize(obj), Encoding.UTF8, "application/json");
+        }
+
+        public static void SetBasicAuthentication(this HttpClient httpClient, string login, string password)
+        {
+            var authToken = Encoding.ASCII.GetBytes($"{login}:{password}");
+
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
+                "Basic", Convert.ToBase64String(authToken));
         }
 
         public static bool IsValid(this HttpResponseMessage response)

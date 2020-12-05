@@ -27,7 +27,6 @@ namespace GeekStore.Api.Configuration
             services.ResolveContexts();
             services.ResolveRepositories();
             services.ResolveServices();
-            services.ResolveFacades();
             services.ResolveHttpServices();
             services.ResolveSettings();
             services.ResolveBuildingBlocks();
@@ -44,12 +43,6 @@ namespace GeekStore.Api.Configuration
         private static IServiceCollection ResolveRepositories(this IServiceCollection services)
         {
             services.AddScoped<IProdutoRepository, ProdutoRepository>();
-            return services;
-        }
-
-        private static IServiceCollection ResolveFacades(this IServiceCollection services)
-        {
-            services.AddScoped<IAuthenticationFacade, AuthenticationFacade>();
             return services;
         }
 

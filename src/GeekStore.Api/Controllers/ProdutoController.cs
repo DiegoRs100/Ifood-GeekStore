@@ -54,7 +54,7 @@ namespace Application.Api.Controllers
                 return BadRequest();
 
             var produto = await _produtoService.Atualizar(_mapper.Map<Produto>(produtoViewModel));
-            return CustomResponse(_mapper.Map<Produto>(produto));
+            return CustomResponse(_mapper.Map<ProdutoViewModel>(produto));
         }
 
         [HttpDelete("remover/{id:guid}")]

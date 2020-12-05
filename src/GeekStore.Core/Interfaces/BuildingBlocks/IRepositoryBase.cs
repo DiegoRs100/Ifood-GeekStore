@@ -17,7 +17,7 @@ namespace GeekStore.Core.Interfaces.BuildingBlocks
         void Delete(TEntity entity);
         Task DeleteAndSave(TEntity entity);
 
-        Task<TEntity> ObterPorId(Guid id);
+        Task<TEntity> ObterPorId(Guid id, bool tracking = false);
         Task<IEnumerable<TEntity>> ObterTodos();
         Task<IEnumerable<TEntity>> ObterPorFiltro(Expression<Func<TEntity, bool>> expressao);
 

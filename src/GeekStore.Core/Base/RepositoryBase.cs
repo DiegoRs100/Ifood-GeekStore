@@ -29,40 +29,45 @@ namespace GeekStore.Core.Base
         public async Task<IEnumerable<TEntity>> ObterPorFiltro(Expression<Func<TEntity, bool>> expressao)
         {
             return await DbSet.AsNoTracking()
-                .Where(expressao).ToListAsync().ConfigureAwait(false);
+                .Where(expressao).ToListAsync();
         }
 
-        public virtual async Task<TEntity> ObterPorId(Guid id)
+        public virtual async Task<TEntity> ObterPorId(Guid id, bool tracking = false)
         {
-            return await DbSet.FindAsync(id).ConfigureAwait(false);
+            if (tracking)
+                return await DbSet.FindAsync(id);
+            else
+                return await DbSet.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public virtual async Task<IEnumerable<TEntity>> ObterTodos()
         {
             return await DbSet.AsNoTracking()
-               .Where(x => x.Ativo).ToListAsync().ConfigureAwait(false);
+               .Where(x => x.Ativo).ToListAsync();
         }
 
         public virtual void Insert(TEntity entity)
         {
+            entity.Ativar();
             DbSet.Add(entity);
         }
 
         public virtual async Task InsertAndSave(TEntity entity)
         {
             Insert(entity);
-            await SaveChanges().ConfigureAwait(false);
+            await SaveChanges();
         }
 
         public virtual void Update(TEntity entity)
         {
+            entity.Ativar();
             DbSet.Update(entity);
         }
 
         public virtual async Task UpdateAndSave(TEntity entity)
         {
             Update(entity);
-            await SaveChanges().ConfigureAwait(false);
+            await SaveChanges();
         }
 
         public virtual void Delete(TEntity entity)
@@ -74,12 +79,12 @@ namespace GeekStore.Core.Base
         public virtual async Task DeleteAndSave(TEntity entity)
         {
             Delete(entity);
-            await SaveChanges().ConfigureAwait(false);
+            await SaveChanges();
         }
 
         public async Task<int> SaveChanges()
         {
-            return await Context.SaveChangesAsync().ConfigureAwait(false);
+            return await Context.SaveChangesAsync();
         }
 
         public void Dispose()

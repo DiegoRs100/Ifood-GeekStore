@@ -1,4 +1,5 @@
 ﻿using GeekStore.Business.Dto_s;
+using GeekStore.Core.Dto_s;
 using GeekStore.Core.Extentions;
 using GeekStore.Core.Interfaces.BuildingBlocks;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +13,7 @@ namespace GeekStore.Data.Contexts
         #region DbSet's
 
         public DbSet<Produto> Produtos { get; set; }
+        public DbSet<Imagem> Imagens { get; set; }
 
         #endregion
 

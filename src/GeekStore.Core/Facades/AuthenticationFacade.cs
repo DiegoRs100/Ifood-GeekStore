@@ -1,5 +1,6 @@
 ﻿using GeekStore.Core.Base;
 using GeekStore.Core.Dto_s;
+using GeekStore.Core.Dto_s.Mappings;
 using GeekStore.Core.Extentions;
 using GeekStore.Core.Interfaces.BuildingBlocks;
 using GeekStore.Core.Settings;
@@ -29,16 +30,23 @@ namespace GeekStore.Core.Facades
 
         public async Task<bool> Login(UsuarioLogin usuarioLogin)
         {
-            var loginContent = usuarioLogin.ToStringContent();
-            var response = await _httpClient.PostAsync("/api/login", loginContent);
+            if (!ExecutarValidacao(new UsuarioLoginValidation(), usuarioLogin))
+                return false;
+
+            _httpClient.SetBasicAuthentication(usuarioLogin.Login, usuarioLogin.Senha);
+
+            var response = await _httpClient.PostAsync("/api/login", null);
 
             if (!response.IsValid())
                 Notificar("Ocorreu um erro desconhecido durante a tentativa de Login.");
 
             var loginResponse = await response.ReadAsync<LoginResponse>();
 
-            if (!loginResponse.Sucess)
+            if (!loginResponse.Success)
+            {
                 Notificar(loginResponse.Error);
+                return false;
+            }
 
             return true;
         }

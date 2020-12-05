@@ -5,10 +5,10 @@ namespace GeekStore.Business.Dto_s
 {
     public class Produto : EntityBase
     {
-        public string Descricao { get; }
-        public double Preco { get; }
+        public string Descricao { get; private set; }
+        public double Preco { get; private set; }
 
-        public Guid? IdImagem { get; }
-        public Imagem Imagem { get; }
+        public Guid? IdImagem { get; private set; }
+        public Imagem Imagem { get; private set; }
     }
 }

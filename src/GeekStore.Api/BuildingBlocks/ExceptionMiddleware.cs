@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using GeekStore.Core.Dto_s;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Net;
-using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace GeekStore.Api.BuildingBlocks
@@ -33,8 +34,10 @@ namespace GeekStore.Api.BuildingBlocks
 
         private async Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
-            var error = Encoding.UTF8.GetBytes($"Exception: {exception.Message} | InnerException: {exception.InnerException.Message}");
-            await context.Response.Body.WriteAsync(error, 0, error.Length);
+            var apiResponse = new ApiResponse<object>(new Notificacao(exception.Message, exception.InnerException?.Message));
+
+            context.Response.ContentType = "application/json";
+            await context.Response.WriteAsync(JsonSerializer.Serialize(apiResponse));
 
             context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
         }
