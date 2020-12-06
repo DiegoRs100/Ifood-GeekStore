@@ -1,0 +1,8 @@
+<ul [ngSwitch]="usuarioLogado()" class="navbar-nav mr-4">
+    <li *ngSwitchCase="false" class="nav-item">
+      <a class="text-white" [routerLink]="['/conta/login']"><span class="fas fa-sign-in-alt mr-2"></span>Login</a>
+    </li>
+    <li *ngSwitchCase="true" class="nav-item">
+      <a class="text-white" href="javascript:void(0)" (click)="logout()"><span class="fas fa-sign-out-alt mr-2"></span>Sair</a>
+    </li>
+</ul>

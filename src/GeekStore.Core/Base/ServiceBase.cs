@@ -12,7 +12,7 @@ namespace GeekStore.Core.Base
     {
         #region Injection
 
-        protected readonly INotificationService _notificador;
+        private readonly INotificationService _notificador;
         private readonly IRepositoryBase<TEntity> _entityRepository;
 
         protected ServiceBase(INotificationService notificador, IRepositoryBase<TEntity> entityRepository)
@@ -76,6 +76,36 @@ namespace GeekStore.Core.Base
             Notificar(validator);
 
             return false;
+        }
+    }
+
+    public abstract class ServiceBase
+    {
+        #region Injection
+
+        private readonly INotificationService _notificador;
+
+        protected ServiceBase(INotificationService notificador)
+        {
+            _notificador = notificador;
+        }
+
+        #endregion
+
+        protected void Notificar(ValidationResult validationResult)
+        {
+            foreach (var error in validationResult.Errors)
+                Notificar(error.ErrorMessage);
+        }
+
+        protected void Notificar(string mensagem, string detalhe)
+        {
+            _notificador.Handle(new Notificacao(mensagem, detalhe));
+        }
+
+        protected void Notificar(string mensagem)
+        {
+            _notificador.Handle(new Notificacao(mensagem));
         }
     }
 }

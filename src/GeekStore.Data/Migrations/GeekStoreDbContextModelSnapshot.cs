@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Application.Data.Migrations
+namespace GeekStore.Data.Migrations
 {
     [DbContext(typeof(GeekStoreDbContext))]
     partial class GeekStoreDbContextModelSnapshot : ModelSnapshot

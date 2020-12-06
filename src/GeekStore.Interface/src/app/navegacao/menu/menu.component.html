@@ -1,0 +1,23 @@
+<header>
+  <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow">
+    <div class="container">
+      <a class="navbar-brand text-white" [routerLink]="['/home']">Geek Store</a>
+      <button class="navbar-toggler" type="button" (click)="isCollapsed = !isCollapsed" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse" [ngbCollapse]="isCollapsed">
+
+        <app-menu-login></app-menu-login>
+
+        <ul class="navbar-nav flex-grow-1">
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/home']">Home</a>
+          </li>
+          <li class=" nav-item">
+            <a class="nav-link" [routerLink]="['/produtos']">Produtos</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>

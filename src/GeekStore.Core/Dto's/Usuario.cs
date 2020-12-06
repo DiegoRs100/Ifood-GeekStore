@@ -4,8 +4,8 @@ namespace GeekStore.Core.Dto_s
 {
     public class UsuarioLogin : EntityBase
     {
-        public string Login { get; }
-        public string Senha { get; }
+        public string Login { get; set;  }
+        public string Senha { get; set; }
     }
 
     public class LoginResponse

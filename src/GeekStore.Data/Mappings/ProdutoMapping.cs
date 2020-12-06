@@ -18,7 +18,7 @@ namespace GeekStore.Data.Mappings
 
         protected override void ConfigureProperties(EntityTypeBuilder<Produto> builder)
         {
-            builder.Property(x => x.Descricao)
+            builder.Property(x => x.Nome)
                 .HasColumnType("VARCHAR(100)");
         }
 

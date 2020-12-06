@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Application.Data.Migrations
+namespace GeekStore.Data.Migrations
 {
     [DbContext(typeof(GeekStoreDbContext))]
     [Migration("20201205213334_CorrecaoPropertiesTbProdutos2")]

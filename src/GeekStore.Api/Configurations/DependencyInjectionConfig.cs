@@ -9,6 +9,11 @@ using GeekStore.Core.Interfaces.BuildingBlocks;
 using GeekStore.Core.Services;
 using GeekStore.Data.Contexts;
 using GeekStore.Data.Repository;
+using GeekStore.Core.Settings;
+using GeekStore.Core.Interfaces.Repositories;
+using GeekStore.Core.Interfaces.Services;
+using GeekStore.Core.Interfaces.Services.Contexts;
+using GeekStore.Data.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -16,7 +21,6 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 using System;
 using Polly;
 using static GeekStore.Api.Configurations.SwaggerConfig;
-using GeekStore.Core.Settings;
 
 namespace GeekStore.Api.Configurations
 {
@@ -36,7 +40,9 @@ namespace GeekStore.Api.Configurations
 
         private static IServiceCollection ResolveContexts(this IServiceCollection services)
         {
+            services.AddScoped<IGeekStoreDbContextService, GeekStoreDbContextService>();
             services.AddScoped<GeekStoreDbContext>();
+
             return services;
         }
 
@@ -73,9 +79,13 @@ namespace GeekStore.Api.Configurations
 
         private static IServiceCollection ResolveBuildingBlocks(this IServiceCollection services)
         {
-            services.AddScoped<ISessionApp, AppSession>();
+            services.AddScoped<IImagemRepository, ImagemRepository>();
+
+            services.AddScoped<IFileServerService, FileServerService>();
             services.AddScoped<INotificationService, NotificationService>();
             services.AddScoped<IAuthenticationService, AuthenticationService>();
+
+            services.AddScoped<ISessionApp, AppSession>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
 

@@ -6,7 +6,7 @@ namespace GeekStore.Business.Dto_s.Validations
     {
         public ProdutoValidation()
         {
-            RuleFor(x => x.Descricao)
+            RuleFor(x => x.Nome)
                 .NotEmpty()
                     .WithMessage("O campo {PropertyName} precisa ser preenchido.")
                 .Length(3, 100)

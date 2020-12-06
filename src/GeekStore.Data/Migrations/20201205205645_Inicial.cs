@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Application.Data.Migrations
+namespace GeekStore.Data.Migrations
 {
     public partial class Inicial : Migration
     {

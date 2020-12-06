@@ -1,6 +1,5 @@
 ﻿using GeekStore.Api.BuildingBlocks.ViewModels;
 using AutoMapper;
-using GeekStore.Api.BuildingBlocks.Controllers;
 using GeekStore.Core.Dto_s;
 using GeekStore.Core.Interfaces.BuildingBlocks;
 using Microsoft.AspNetCore.Mvc;
@@ -8,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GeekStore.Api.BuildingBlocks.Controllers
 {
-    [Route("api/v{version:apiVersion}/Authentication")]
+    [Route("api/v{version:apiVersion}/authentication")]
     public class AuthenticationController : MainController
     {
         #region Injection

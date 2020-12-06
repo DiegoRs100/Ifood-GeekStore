@@ -3,38 +3,38 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30611.23
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application.Api", "src\GeekStore.Api\Application.Api.csproj", "{26E6A820-B0F7-4A38-98FB-B72ECDCD3EEE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeekStore.Api", "src\GeekStore.Api\GeekStore.Api.csproj", "{26E6A820-B0F7-4A38-98FB-B72ECDCD3EEE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application.Business", "src\GeekStore.Business\Application.Business.csproj", "{4A02243B-F485-4130-B96F-8FA2B81C9E9C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeekStore.Business", "src\GeekStore.Business\GeekStore.Business.csproj", "{4A02243B-F485-4130-B96F-8FA2B81C9E9C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeekStore.Core", "src\GeekStore.Core\GeekStore.Core.csproj", "{BC86B296-8B68-4BBD-A6BC-E6F3CD58F2AC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application.Data", "src\GeekStore.Data\Application.Data.csproj", "{C6B9756C-1913-49A7-99E6-21FEC17DB301}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeekStore.Data", "src\GeekStore.Data\GeekStore.Data.csproj", "{C6B9756C-1913-49A7-99E6-21FEC17DB301}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{28794587-0F58-4141-BC6D-747C807ED0F8}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "GeekStore.UI", "src\GeekStore.UI\", "{C86F23D5-0367-4731-8EB8-4FA63E67CC3D}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "GeekStore.Interface", "src\GeekStore.Interface\", "{F558C757-CF06-4293-A8FD-A4112129EA8B}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
-		Debug.AspNetCompiler.VirtualPath = "/localhost_64004"
-		Debug.AspNetCompiler.PhysicalPath = "src\GeekStore.UI\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_64004\"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_64764"
+		Debug.AspNetCompiler.PhysicalPath = "src\GeekStore.Interface\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_64764\"
 		Debug.AspNetCompiler.Updateable = "true"
 		Debug.AspNetCompiler.ForceOverwrite = "true"
 		Debug.AspNetCompiler.FixedNames = "false"
 		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.VirtualPath = "/localhost_64004"
-		Release.AspNetCompiler.PhysicalPath = "src\GeekStore.UI\"
-		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_64004\"
+		Release.AspNetCompiler.VirtualPath = "/localhost_64764"
+		Release.AspNetCompiler.PhysicalPath = "src\GeekStore.Interface\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_64764\"
 		Release.AspNetCompiler.Updateable = "true"
 		Release.AspNetCompiler.ForceOverwrite = "true"
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "64004"
-		SlnRelativePath = "src\GeekStore.UI\"
+		VWDPort = "64764"
+		SlnRelativePath = "src\GeekStore.Interface\"
 	EndProjectSection
 EndProject
 Global
@@ -59,10 +59,9 @@ Global
 		{C6B9756C-1913-49A7-99E6-21FEC17DB301}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C6B9756C-1913-49A7-99E6-21FEC17DB301}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C6B9756C-1913-49A7-99E6-21FEC17DB301}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C86F23D5-0367-4731-8EB8-4FA63E67CC3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C86F23D5-0367-4731-8EB8-4FA63E67CC3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C86F23D5-0367-4731-8EB8-4FA63E67CC3D}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{C86F23D5-0367-4731-8EB8-4FA63E67CC3D}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{F558C757-CF06-4293-A8FD-A4112129EA8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F558C757-CF06-4293-A8FD-A4112129EA8B}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{F558C757-CF06-4293-A8FD-A4112129EA8B}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

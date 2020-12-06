@@ -7,7 +7,7 @@ namespace GeekStore.Api.ViewModels
     {
         public Guid Id { get; set; }
 
-        public string Descricao { get; set; }
+        public string Nome { get; set; }
         public double Preco { get; set; }
 
         public Guid? IdImagem { get; set; }

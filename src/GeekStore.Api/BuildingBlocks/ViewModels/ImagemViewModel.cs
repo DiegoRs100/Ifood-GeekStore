@@ -1,8 +1,12 @@
-﻿namespace GeekStore.Api.BuildingBlocks.ViewModels
+﻿using System;
+
+namespace GeekStore.Api.BuildingBlocks.ViewModels
 {
     public class ImagemViewModel
     {
-        public string Path { get; set; }
-        public byte[] Content { get; set; }
+        public Guid Id { get; set; }
+
+        public string Nome { get; set; }
+        public string Base64 { get; set; }
     }
 }
