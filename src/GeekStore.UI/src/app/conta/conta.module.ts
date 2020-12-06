@@ -4,7 +4,6 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
-import { CadastroComponent } from './cadastro/cadastro.component';
 import { LoginComponent } from './login/login.component';
 import { ContaAppComponent } from './conta.app.component';
 
@@ -17,7 +16,6 @@ import { ContaGuard } from './services/conta.guard';
 @NgModule({
   declarations: [
     ContaAppComponent,
-    CadastroComponent, 
     LoginComponent
   ],
   imports: [
