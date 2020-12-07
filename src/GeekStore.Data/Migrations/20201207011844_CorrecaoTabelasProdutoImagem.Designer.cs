@@ -4,14 +4,16 @@ using GeekStore.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GeekStore.Data.Migrations
 {
     [DbContext(typeof(GeekStoreDbContext))]
-    partial class GeekStoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201207011844_CorrecaoTabelasProdutoImagem")]
+    partial class CorrecaoTabelasProdutoImagem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

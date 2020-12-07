@@ -7,6 +7,6 @@ namespace GeekStore.Core.Interfaces.BuildingBlocks
     {
         Task<TEntity> Inserir(TEntity entity);
         Task<TEntity> Atualizar(TEntity entity);
-        Task<bool> Remover(TEntity entity);
+        Task<bool> Excluir(TEntity entity);
     }
 }

@@ -17,9 +17,6 @@ namespace GeekStore.Data.Mappings
 
         protected override void ConfigureProperties(EntityTypeBuilder<Imagem> builder)
         {
-            builder.Property(x => x.Path)
-                .HasColumnType("VARCHAR(100)");
-
             builder.Property(x => x.Extensao)
                 .HasColumnType("VARCHAR(5)");
         }

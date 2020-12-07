@@ -23,6 +23,13 @@ namespace GeekStore.Api.Configurations
 
             #endregion
 
+            #region FileServer
+
+            var fileServerSettings = configuration.GetSection("FileServerSettings");
+            services.Configure<FileServerSettings>(fileServerSettings);
+
+            #endregion
+
             #region Application Settings
 
             var appSettings = configuration.GetSection("AppSettings");

@@ -47,7 +47,7 @@ namespace GeekStore.Core.Base
             return entity;
         }
 
-        public virtual async Task<bool> Remover(TEntity entity)
+        public virtual async Task<bool> Excluir(TEntity entity)
         {
             await _entityRepository.DeleteAndSave(entity);
             return true;

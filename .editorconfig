@@ -8,3 +8,6 @@ dotnet_diagnostic.S3925.severity = none
 
 # RCS1170: Use read-only auto-implemented property.
 dotnet_diagnostic.RCS1170.severity = none
+
+# RCS1155: Use StringComparison when comparing strings.
+dotnet_diagnostic.RCS1155.severity = none

@@ -12,7 +12,6 @@ using GeekStore.Data.Repository;
 using GeekStore.Core.Settings;
 using GeekStore.Core.Interfaces.Repositories;
 using GeekStore.Core.Interfaces.Services;
-using GeekStore.Core.Interfaces.Services.Contexts;
 using GeekStore.Data.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
@@ -73,6 +72,7 @@ namespace GeekStore.Api.Configurations
             services.AddScoped<SwaggerSettings>();
             services.AddScoped<ApiAuthenticationSettings>();
             services.AddScoped<AppSettings>();
+            services.AddScoped<FileServerSettings>();
 
             return services;
         }

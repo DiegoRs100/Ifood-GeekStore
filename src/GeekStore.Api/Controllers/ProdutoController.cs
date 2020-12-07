@@ -21,7 +21,7 @@ namespace GeekStore.Api.Controllers
         private readonly IProdutoRepository _produtoRepository;
         private readonly IMapper _mapper;
 
-        public ProdutoController (ISessionApp appSession,
+        public ProdutoController(ISessionApp appSession,
                                   INotificationService notificador,
                                   IMapper mapper,
                                   IProdutoService produtoService,
@@ -57,22 +57,29 @@ namespace GeekStore.Api.Controllers
             return CustomResponse(_mapper.Map<ProdutoViewModel>(produto));
         }
 
-        [HttpDelete("remover/{id:guid}")]
-        public async Task<ActionResult<ProdutoViewModel>> Remover(Guid id)
+        [HttpDelete("excluir/{id:guid}")]
+        public async Task<ActionResult<ProdutoViewModel>> Excluir(Guid id)
         {
             var produto = await _produtoRepository.ObterPorId(id);
 
             if (produto?.Ativo != true)
                 return NotFound();
 
-            await _produtoService.Remover(produto);
+            await _produtoService.Excluir(produto);
+            return CustomResponse(_mapper.Map<ProdutoViewModel>(produto));
+        }
+
+        [HttpGet("{id:Guid}")]
+        public async Task<ActionResult<ProdutoViewModel>> ObterPorId(Guid id)
+        {
+            var produto = await _produtoService.ObterPorId(id);
             return CustomResponse(_mapper.Map<ProdutoViewModel>(produto));
         }
 
         [HttpGet("obter-todos")]
         public async Task<ActionResult<IEnumerable<ProdutoViewModel>>> ObterTodos()
         {
-            var produtos = await _produtoRepository.ObterTodos();
+            var produtos = await _produtoService.ObterTodos();
             return CustomResponse(_mapper.Map<IEnumerable<ProdutoViewModel>>(produtos));
         }
     }

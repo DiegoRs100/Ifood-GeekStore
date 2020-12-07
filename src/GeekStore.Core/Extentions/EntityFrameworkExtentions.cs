@@ -11,7 +11,7 @@ namespace GeekStore.Core.Extentions
     {
         public static ChangeTracker UpdateData(this ChangeTracker changeTracker, ISessionApp appSession)
         {
-            foreach (var entry in changeTracker.Entries().Where(entry => entry.Entity is EntityBase))
+            foreach (var entry in changeTracker.Entries().Where(entry => entry.Entity is EntityBase && entry.State != EntityState.Unchanged))
             {
                 var date = DateTime.UtcNow.RemoverMilisSegundos();
 

@@ -1,9 +1,12 @@
 ﻿using GeekStore.Core.Base;
 using GeekStore.Core.Dto_s;
-using GeekStore.Core.Interfaces;
+using GeekStore.Core.Dto_s.Validations;
+using GeekStore.Core.Extentions.Exceptions;
 using GeekStore.Core.Interfaces.BuildingBlocks;
 using GeekStore.Core.Interfaces.Repositories;
 using GeekStore.Core.Interfaces.Services;
+using GeekStore.Core.Settings;
+using Microsoft.Extensions.Options;
 using System;
 using System.IO;
 using System.Linq;
@@ -16,69 +19,100 @@ namespace GeekStore.Core.Services
         #region Injection
 
         public readonly IImagemRepository _imagemRepository;
-        public readonly IContextServiceBase _contextService;
+        public readonly IGeekStoreDbContextService _geekStoreDbContextService;
+        public readonly FileServerSettings _fileServerSettings;
 
         public FileServerService (IImagemRepository imagemRepository,
-                                  IContextServiceBase contextService,
-                                  INotificationService notification) : base(notification)
+                                  IGeekStoreDbContextService geekStoreDbContextService,
+                                  INotificationService notification,
+                                  IOptions<FileServerSettings> fileServerSettings) : base(notification)
         {
             _imagemRepository = imagemRepository;
-            _contextService = contextService;
+            _fileServerSettings = fileServerSettings.Value;
+            _geekStoreDbContextService = geekStoreDbContextService;
         }
 
         #endregion
 
-        public async Task<Imagem> SalvarImagem(Imagem imagem)
+        public async Task<string> ObterBase64(Arquivo arquivo)
         {
-            #region Formatando dados da imagem
-
-            if (imagem?.Nome == null)
-            {
-                Notificar("Imagem inválida.");
-                return null;
-            }
-
-            var extensao = Path.GetExtension(imagem.Nome);
-
-            if (string.IsNullOrEmpty(extensao))
-            {
-                Notificar("A extensão da imagem é inválida.");
-                return null;
-            }
-
-            var imgBytes = imagem.ObterArray();
-
-            if (imgBytes?.Any() != true)
-            {
-                Notificar("Imagem inválida.");
-                return null;
-            }
-
-            imagem.DefinirNome(Path.GetFileNameWithoutExtension(imagem.Nome) ?? imagem.Id.ToString());
-            imagem.DefinirExtensao(extensao);
-            imagem.DefinirPath($"{ imagem.Id }.{ imagem.Extensao }");
-
-            #endregion
-
-            await _contextService.CreateTransaction();
-            await _imagemRepository.InsertAndSave(imagem);
-
-            #region Salvando imagem
-
             try
             {
-                File.WriteAllBytes("Foo.txt", imgBytes);
+                var array = await File.ReadAllBytesAsync(Path.Combine(_fileServerSettings.Path, arquivo.NomeArquivoFileServer));
+                return Convert.ToBase64String(array);
             }
             catch
             {
-                Notificar("Não foi possível salvar a imagem.", "Erro ao tentar acessar o FileServer.");
+                return null;
+            }
+        }
+
+        public string ObterUrlFileServer()
+        {
+            return _fileServerSettings.Url;
+        }
+
+        public async Task<Imagem> SalvarImagem(Imagem imagem)
+        {
+            imagem = FormatarArquivo(imagem);
+
+            if (imagem == null)
+                return null;
+
+            var transaction = await _geekStoreDbContextService.CreateTransaction();
+            await _imagemRepository.InsertAndSave(imagem);
+
+            var result = await SalvarArquivo(imagem);
+
+            if (!result)
+                return null;
+
+            _geekStoreDbContextService.Commit(transaction);
+            return imagem;
+        }
+
+        private TClass FormatarArquivo<TClass>(TClass arquivo) where TClass : Arquivo
+        {
+            if (arquivo?.Nome == null)
+            {
+                Notificar("Arquivo inválido.");
                 return null;
             }
 
-            #endregion
+            arquivo.DefinirExtensao(Path.GetExtension(arquivo.Nome));
 
-            _contextService.Commit();
-            return imagem;
+            if (string.IsNullOrEmpty(arquivo.Extensao))
+            {
+                Notificar("A extensão do arquivo é inválida.");
+                return null;
+            }
+
+            return arquivo;
+        }
+
+        private async Task<bool> SalvarArquivo<TClass>(TClass arquivo) where TClass : Arquivo
+        {
+            var imgBytes = arquivo.ObterArray();
+
+            if (imgBytes?.Any() != true)
+            {
+                Notificar("Arquivo inválido.");
+                return false;
+            }
+
+            try
+            {
+                await File.WriteAllBytesAsync(Path.Combine(_fileServerSettings.Path, arquivo.NomeArquivoFileServer), imgBytes);
+            }
+            catch
+            {
+                Notificar($"Não foi possível salvar o arquivo { arquivo.Nome }.",
+                    "Erro ao tentar acessar o FileServer.");
+
+                return false;
+            }
+
+            return true;
         }
 
         public void Dispose()

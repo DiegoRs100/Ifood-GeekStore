@@ -7,6 +7,12 @@ namespace GeekStore.Core.Base
 {
     public abstract class ContextServiceBase<TContext> : IContextServiceBase where TContext : DbContext
     {
+        #region Properties
+
+        public Guid? IdTransaction { get; private set; }
+
+        #endregion
+
         #region Injection
 
         protected readonly TContext Context;
@@ -18,19 +24,33 @@ namespace GeekStore.Core.Base
 
         #endregion
 
-        public async Task CreateTransaction()
+        public async Task<Guid?> CreateTransaction()
         {
+            if (IdTransaction != null)
+                return null;
+
             await Context.Database.BeginTransactionAsync();
+
+            IdTransaction = Guid.NewGuid();
+            return IdTransaction;
         }
 
-        public void Commit()
+        public void Commit(Guid? idTransaction)
         {
+            if (IdTransaction != idTransaction)
+                return;
+
             Context.Database.CurrentTransaction.Commit();
+            IdTransaction = null;
         }
 
-        public void Rollback()
+        public void Rollback(Guid? idTransaction)
         {
+            if (IdTransaction != idTransaction)
+                return;
+
             Context.Database.CurrentTransaction.Rollback();
+            IdTransaction = null;
         }
 
         public void Dispose()

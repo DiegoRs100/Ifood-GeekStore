@@ -1,11 +1,11 @@
 <div class="container main-container">
-    <h4>Excluir {{ produto.nome }} </h4>
+    <h4>Excluir - {{ produto.nome }}</h4>
     <br>
     <h5>Você tem certeza disso?</h5>
 
     <div class="row">
         <div class="col-md-4">
-            <img src="{{ imagens }}{{ produto.imagem.base64 }}" style="width: 300px; height: 428px">
+            <img class="border" src="{{ produto.imagem.url }}" style="width: 300px; height: 428px; padding: 5px">
         </div>
         <div class="col-md-6">
             <dl>
@@ -13,7 +13,7 @@
                     Nome
                 </dt>
                 <dd>
-                    {{ produto.imagem.nome }}
+                    {{ produto.nome }}
                 </dd>
                 <dt>
                     Preço
@@ -24,7 +24,7 @@
             </dl>
 
             <div>
-                <a (click)="excluirProduto()" href="javascript:void(0)" class="btn btn-danger">Excluir</a>&nbsp;
+                <a (click)="excluirProduto()" href="javascript:void(0)" class="btn btn-danger mr-2">Excluir</a>
                 <a class="btn btn-info" href="javascript:window.history.back();">Voltar</a>
             </div>
         </div>

@@ -20,7 +20,7 @@ export class ProdutoService extends BaseService {
 
     obterProdutoPorId(id: string): Observable<Produto> {
         return this.http
-            .get<Produto>(this.UrlServiceV1 + "produtos/" + id, super.ObterAuthHeaderJson())
+            .get<Produto>(this.UrlServiceV1 + "produto/" + id, super.ObterAuthHeaderJson())
             .pipe(catchError(super.serviceError));
     }
 
@@ -34,7 +34,7 @@ export class ProdutoService extends BaseService {
 
     atualizarProduto(produto: Produto): Observable<Produto> {
         return this.http
-            .put(this.UrlServiceV1 + "produto/atualizar" + produto.id, produto, super.ObterAuthHeaderJson())
+            .put(this.UrlServiceV1 + "produto/atualizar/" + produto.id, produto, super.ObterAuthHeaderJson())
             .pipe(
                 map(super.extractData),
                 catchError(super.serviceError));
@@ -42,7 +42,7 @@ export class ProdutoService extends BaseService {
 
     excluirProduto(id: string): Observable<Produto> {
         return this.http
-            .delete(this.UrlServiceV1 + "produto/excluir" + id, super.ObterAuthHeaderJson())
+            .delete(this.UrlServiceV1 + "produto/excluir/" + id, super.ObterAuthHeaderJson())
             .pipe(
                 map(super.extractData),
                 catchError(super.serviceError));
