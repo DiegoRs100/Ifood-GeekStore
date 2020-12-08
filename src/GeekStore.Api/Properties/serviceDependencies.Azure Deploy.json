@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "mssql1": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourcegroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/demosdbserver0121/databases/GeekStore_db",
+      "type": "mssql.azure",
+      "connectionId": "GeekStore_db",
+      "secretStore": "AzureAppSettings"
+    }
+  }
+}

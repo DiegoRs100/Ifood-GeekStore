@@ -16,27 +16,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "GeekStore.Interface", "src\GeekStore.Interface\", "{F558C757-CF06-4293-A8FD-A4112129EA8B}"
-	ProjectSection(WebsiteProperties) = preProject
-		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
-		Debug.AspNetCompiler.VirtualPath = "/localhost_64764"
-		Debug.AspNetCompiler.PhysicalPath = "src\GeekStore.Interface\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_64764\"
-		Debug.AspNetCompiler.Updateable = "true"
-		Debug.AspNetCompiler.ForceOverwrite = "true"
-		Debug.AspNetCompiler.FixedNames = "false"
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.VirtualPath = "/localhost_64764"
-		Release.AspNetCompiler.PhysicalPath = "src\GeekStore.Interface\"
-		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_64764\"
-		Release.AspNetCompiler.Updateable = "true"
-		Release.AspNetCompiler.ForceOverwrite = "true"
-		Release.AspNetCompiler.FixedNames = "false"
-		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "64764"
-		SlnRelativePath = "src\GeekStore.Interface\"
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,9 +38,6 @@ Global
 		{C6B9756C-1913-49A7-99E6-21FEC17DB301}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C6B9756C-1913-49A7-99E6-21FEC17DB301}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C6B9756C-1913-49A7-99E6-21FEC17DB301}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F558C757-CF06-4293-A8FD-A4112129EA8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F558C757-CF06-4293-A8FD-A4112129EA8B}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{F558C757-CF06-4293-A8FD-A4112129EA8B}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
