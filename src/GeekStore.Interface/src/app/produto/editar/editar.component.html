@@ -1,63 +1,91 @@
 <div class="container main-container">
 
-    <h3>Editar Produto - {{ produto.nome }}</h3>
+    <h3>Editar - {{ produto.nome }}</h3>
 
     <hr>
     <div class="row">
         <div class="col-md-10">
             <form enctype="multipart/form-data" (ngSubmit)="editarProduto()" [formGroup]="produtoForm">
 
-                <div class="alert alert-danger" *ngIf="errors.length > 0">
-                    <h3 id="msgRetorno">Opa! Alguma coisa não deu certo:</h3>
-                    <ul>
-                        <li *ngFor="let error of errors">{{ error }}</li>
-                    </ul>
-                </div>
+              <div class="alert alert-danger" *ngIf="errors.length > 0">
+                <h3 id="msgRetorno">Opa! Alguma coisa não deu certo:</h3>
+                  <ul>
+                      <li *ngFor="let error of errors">
+                          {{ error.mensagem }}
+                          <ul *ngIf="error.detalhe != null">
+                              <li>{{ error.detalhe }}</li>
+                          </ul>
+                      </li>
+                  </ul>
+              </div>
 
                 <div class="form-group">
                     <label class="control-label">Nome</label>
                     <div>
-                        <input class="form-control" id="nome" type="text" placeholder="Nome (requerido)" formControlName="nome" [ngClass]="{'is-invalid': displayMessage.nome }" />
+                        <input class="form-control" id="nome" type="text" placeholder="Requerido" formControlName="nome" [ngClass]="{'is-invalid': displayMessage.nome }" />
                         <span class="text-danger" *ngIf="displayMessage.nome">
-                            <p [innerHTML]="displayMessage.nome"></p>
+                            <span [innerHTML]="displayMessage.nome"></span>
                         </span>
                     </div>
                 </div>
 
-                <div *ngIf="!imagemPreview" class="form-group">
+                <div *ngIf="imagemOriginalSrc" class="form-group">
                     <label>Imagem Atual</label><br>
-                    <img [src]="imagemOriginalSrc" style="width: 70px; height: 100px">
+                    <img [src]="imagemOriginalSrc" class="border" style="width: 84px; height: 120px; padding : 5px">
                 </div>
-                <div *ngIf="imagemPreview" class="form-group">
-                    <label>Nova Imagem</label><br>
-                    <img [src]="imagemPreview" style="width: 70px; height: 100px" />
-                </div>
-
+ 
                 <div class="form-group">
-                    <label class="control-label">Imagem do Produto</label>
+                  <label class="control-label">Imagem do Produto</label>
 
-                    <div class="custom-file">
-                        <input type="file" accept="image/jpeg,image/png" class="custom-file-input" id="imagem" formControlName="imagem" #fileInput (change)="upload(fileInput.files)" [ngClass]="{'is-invalid': displayMessage.imagem }">
-                        <label data-browse="Procurar" style="width: 400px" class="custom-file-label"></label>
-                        <span class="text-danger" *ngIf="displayMessage.imagem">
-                            <p [innerHTML]="displayMessage.imagem"></p>
-                        </span>
-                    </div>
+                  <div class="custom-file">
+                    <input type="file" accept="image/jpeg,image/png" class="custom-file-input" id="nome-imagem" formControlName="imagemNome" (change)="fileChangeEvent($event)">
+                    <label data-browse="Procurar" style="width: 400px" class="custom-file-label"></label>
+                  </div>
+
+                  <div *ngIf='imagemNome' class="row">
+                      <div class="col col-md-12">
+                        <span *ngIf='imagemNome'><br>{{ imagemNome }}<br></span>
+                      </div>
+                  </div>
+                  <div *ngIf='imagemNome' class="row">
+                      <div class="col col-md-6">
+                          <image-cropper class="border"
+                                         [imageChangedEvent]="imageChangedEvent"
+                                         [maintainAspectRatio]="true"
+                                         [containWithinAspectRatio]="containWithinAspectRatio"
+                                         [aspectRatio]="3 / 4"
+                                         [resizeToWidth]="256"
+                                         [cropperMinWidth]="128"
+                                         [onlyScaleDown]="true"
+                                         [roundCropper]="false"
+                                         [canvasRotation]="canvasRotation"
+                                         [transform]="transform"
+                                         [alignImage]="'left'"
+                                         [style.display]="showCropper ? null : 'none'" format="png"
+                                         (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()" (cropperReady)="cropperReady($event)"
+                                         (loadImageFailed)="loadImageFailed()"></image-cropper>
+                      </div>
+                      <div class="col col-md-6">
+                          <img [src]="croppedImage" [ngClass]="{'border': croppedImage}" style="padding: 5px" />
+                      </div>
+                  </div>
                 </div>
 
                 <div class="form-group">
                     <label class="control-label">Preço</label>
                     <div>
-                        <input class="form-control" id="preco" type="text" placeholder="Requerido)" formControlName="preco" [textMask]="{mask: MASKS.number.textMask}" [ngClass]="{'is-invalid': displayMessage.preco }" />
+                        <input class="form-control" id="preco" type="text" placeholder="Requerido" formControlName="preco" [textMask]="{mask: MASKS.number.textMask}" [ngClass]="{'is-invalid': displayMessage.preco }" />
                         <span class="text-danger" *ngIf="displayMessage.valor">
-                            <p [innerHTML]="displayMessage.preco"></p>
+                            <span [innerHTML]="displayMessage.preco"></span>
                         </span>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <input type="submit" [disabled]="!produtoForm.valid" value="Editar" class="btn btn-primary">&nbsp;
-                    <a class="btn btn-info" href="/produtos/listar-todos">Voltar</a>
+                    <span class="mr-2">
+                      <button class="btn btn-primary" id="btn-cadastrar" [disabled]="!produtoForm.valid || !produtoForm.dirty" type="submit"><span class="fas fa-edit mr-2"></span>Editar</button>
+                    </span>
+                    <a class="btn btn-info" href="/produtos"><span class="far fa-hand-point-left mr-2"></span>Voltar</a>
                 </div>
             </form>
         </div>

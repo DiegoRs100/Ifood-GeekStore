@@ -21,7 +21,7 @@
         <tbody>
             <tr *ngFor="let produto of produtos">
                 <td>
-                    <img src="{{ produto.imagem.url }}" class="border" style="width: 70px; height: 100px; padding: 5px">
+                    <img src="{{ produto.imagem != null ? produto.imagem.url : '/assets/no-image.png'}}" class="border" style="width: 75px; height: 100px; padding: 5px">
                 </td>
                 <td>
                     {{ produto.nome }}
@@ -31,10 +31,10 @@
                 </td>
                 <td class="text-right">
                     <a class="btn btn-info mr-2" [routerLink]="['/produtos/editar',produto.id]">
-                        <span class="fa fa-pencil-alt"></span>
+                        <span class="fas fa-pencil-alt"></span>
                     </a>
                     <a class="btn btn-danger" [routerLink]="['/produtos/excluir',produto.id]">
-                        <span class="fa fa-trash"></span>
+                        <span class="fas fa-trash-alt"></span>
                     </a>
                 </td>
             </tr>

@@ -76,20 +76,31 @@ namespace GeekStore.Business.Services
             return produto;
         }
 
-        //public override async Task<Produto> Atualizar(Produto entity)
-        //{
-        //    if (!ExecutarValidacao(new ProdutoValidation(), entity))
-        //        return null;
+        public override async Task<Produto> Atualizar(Produto produto)
+        {
+            if (!ExecutarValidacao(new ProdutoValidation(), produto))
+                return null;
 
-        //    if (_produtoRepository.ObterPorId(entity.Id).Result?.Ativo != true)
-        //    {
-        //        Notificar("Registro inexistente.");
-        //        return null;
-        //    }
+            if (_produtoRepository.ObterPorId(produto.Id).Result?.Ativo != true)
+            {
+                Notificar("Registro inexistente.");
+                return null;
+            }
 
-        //    await _entityRepository.UpdateAndSave(entity);
-        //    return entity;
-        //}
+            var transaction = await _geekStoreDbContextService.CreateTransaction();
+
+            #region Persistindo imagem no FileServer
+
+            if (produto.Imagem != null)
+                await _fileServerService.SalvarImagem(produto.Imagem);
+
+            #endregion
+
+            await _produtoRepository.UpdateAndSave(produto);
+            _geekStoreDbContextService.Commit(transaction);
+
+            return produto;
+        }
 
         public void Dispose()
         {

@@ -6,3 +6,4 @@
 using System.Diagnostics.CodeAnalysis;
 
 [assembly: SuppressMessage("Critical Code Smell", "S927:Parameter names should match base declaration and other partial definitions", Justification = "<Pendente>", Scope = "member", Target = "~M:GeekStore.Business.Services.ProdutoService.Inserir(GeekStore.Business.Dto_s.Produto)~System.Threading.Tasks.Task{GeekStore.Business.Dto_s.Produto}")]
+[assembly: SuppressMessage("Critical Code Smell", "S927:Parameter names should match base declaration and other partial definitions", Justification = "<Pendente>", Scope = "member", Target = "~M:GeekStore.Business.Services.ProdutoService.Atualizar(GeekStore.Business.Dto_s.Produto)~System.Threading.Tasks.Task{GeekStore.Business.Dto_s.Produto}")]

@@ -5,9 +5,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
 import { ProdutoService } from '../services/produto.service';
-import { environment } from 'src/environments/environment';
 import { CurrencyUtils } from 'src/app/utils/currency-utils';
 import { ProdutoBaseComponent } from '../produto-form.base.component';
+import { ImageTransform, ImageCroppedEvent, Dimensions } from 'ngx-image-cropper';
+import { Imagem } from '../../models/imagem';
 
 @Component({
   selector: 'app-editar',
@@ -15,13 +16,19 @@ import { ProdutoBaseComponent } from '../produto-form.base.component';
 })
 export class EditarComponent extends ProdutoBaseComponent implements OnInit {
 
-  imagens: string = environment.imagensUrl;
-
   @ViewChildren(FormControlName, { read: ElementRef }) formInputElements: ElementRef[];
 
-  imageBase64: any;
-  imagemPreview: any;
+  imageChangedEvent: any = '';
+  croppedImage: any = '';
+  canvasRotation = 0;
+  rotation = 0;
+  scale = 1;
+  showCropper = false;
+  containWithinAspectRatio = false;
+  transform: ImageTransform = {};
+  imageURL: string;
   imagemNome: string;
+  imagePreview: string;
   imagemOriginalSrc: string;
 
   constructor(private fb: FormBuilder,
@@ -31,18 +38,20 @@ export class EditarComponent extends ProdutoBaseComponent implements OnInit {
     private toastr: ToastrService) {
 
     super();
-    this.produto = this.route.snapshot.data['produto'];
+
+    let response = this.route.snapshot.data['produto'];
+
+    if (response.success && response.data != null) {
+      this.produto = this.route.snapshot.data['produto'].data;
+    }
   }
 
   ngOnInit(): void {
 
     this.produtoForm = this.fb.group({
-      fornecedorId: ['', [Validators.required]],
-      nome: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(200)]],
-      descricao: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(1000)]],
-      imagem: [''],
-      valor: ['', [Validators.required]],
-      ativo: [0]
+      nome: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
+      preco: ['', [Validators.required]],
+      imagemNome: ['']
     });
 
     this.produtoForm.patchValue({
@@ -51,8 +60,9 @@ export class EditarComponent extends ProdutoBaseComponent implements OnInit {
       preco: CurrencyUtils.DecimalParaString(this.produto.preco)
     });
 
-    // utilizar o [src] na imagem para evitar que se perca após post
-    this.imagemOriginalSrc = this.imagens + this.produto.imagem.nome;
+    if (this.produto.imagem != null) {
+      this.imagemOriginalSrc = this.produto.imagem.url;
+    }
   }
 
   ngAfterViewInit(): void {
@@ -60,13 +70,22 @@ export class EditarComponent extends ProdutoBaseComponent implements OnInit {
   }
 
   editarProduto() {
+
     if (this.produtoForm.dirty && this.produtoForm.valid) {
+
       this.produto = Object.assign({}, this.produto, this.produtoForm.value);
 
-      if (this.imageBase64) {
+      if (this.imagemNome != null) {
+
+        this.produto.imagem = new Imagem();
+
         this.produto.imagem.nome = this.imagemNome;
-        this.produto.imagem.base64 = this.imageBase64;
+        this.produto.imagem.base64 = this.croppedImage.split(',')[1];
       }
+      else {
+        this.produto.imagem = null;
+      }
+
 
       this.produto.preco = CurrencyUtils.StringParaDecimal(this.produto.preco);
 
@@ -81,13 +100,15 @@ export class EditarComponent extends ProdutoBaseComponent implements OnInit {
   }
 
   processarSucesso(response: any) {
+
     this.produtoForm.reset();
     this.errors = [];
 
     let toast = this.toastr.success('Produto editado com sucesso!', 'Sucesso!');
+
     if (toast) {
       toast.onHidden.subscribe(() => {
-        this.router.navigate(['/produtos/listar-todos']);
+        this.router.navigate(['/produtos']);
       });
     }
   }
@@ -97,17 +118,24 @@ export class EditarComponent extends ProdutoBaseComponent implements OnInit {
     this.toastr.error('Ocorreu um erro!', 'Opa :(');
   }
 
-  upload(file: any) {
-    this.imagemNome = file[0].name;
-
-    var reader = new FileReader();
-    reader.onload = this.manipularReader.bind(this);
-    reader.readAsBinaryString(file[0]);
+  fileChangeEvent(event: any): void {
+    this.imageChangedEvent = event;
+    this.imagemNome = event.currentTarget.files[0].name;
   }
 
-  manipularReader(readerEvt: any) {
-    var binaryString = readerEvt.target.result;
-    this.imageBase64 = btoa(binaryString);
-    this.imagemPreview = "data:image/jpeg;base64," + this.imageBase64;
+  imageCropped(event: ImageCroppedEvent) {
+    this.croppedImage = event.base64;
+  }
+
+  imageLoaded() {
+    this.showCropper = true;
+  }
+
+  cropperReady(sourceImageDimensions: Dimensions) {
+    console.log('Cropper ready', sourceImageDimensions);
+  }
+
+  loadImageFailed() {
+    this.errors.push('O formato do arquivo ' + this.imagemNome + ' não é aceito.');
   }
 }
