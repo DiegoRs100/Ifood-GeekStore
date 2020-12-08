@@ -19,6 +19,9 @@ namespace GeekStore.Data.Mappings
         {
             builder.Property(x => x.Extensao)
                 .HasColumnType("VARCHAR(5)");
+
+            builder.Property(x => x.Nome)
+                .HasColumnType("VARCHAR(200)");
         }
     }
 }
