@@ -28,10 +28,8 @@ namespace GeekStore.Api.BuildingBlocks
 
         public Guid GetUserId()
         {
-            // Caso o usuário não seja identificado, assume-se o ID do usuário Default do sistema.
-            return IsAuthenticated()
-                ? Guid.Parse(_accessor.HttpContext.User.GetUserId())
-                : new Guid("551ed650-c290-4daa-bba5-eed3ba221645");
+            // Para este case estamos simulando um usuário.
+            return new Guid("551ed650-c290-4daa-bba5-eed3ba221645");
         }
 
         public string GetUserEmail()

@@ -11,8 +11,6 @@ namespace GeekStore.Api.Configurations
     {
         public static IServiceCollection AddIdentityConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
-            #region Jwt
-
             var appSettingsSection = configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);
 
@@ -37,8 +35,6 @@ namespace GeekStore.Api.Configurations
                     ValidIssuer = appSettings.Emissor
                 };
             });
-
-            #endregion
 
             return services;
         }

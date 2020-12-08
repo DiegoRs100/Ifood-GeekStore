@@ -10,7 +10,7 @@
                             <div class="col-sm-12">
 
                                 <div class="card mt-3 shadow-sm">
-                                    <div class="card-body">
+                                    <div class="card-body text-justify">
                                         <h5 class="card-title">Resumo</h5>
                                         <p>O teste consiste na criação de um website composto por uma tela de login (autenticando via api) e um CRUD de   produtos.</p>
                                         <p>As informações de acesso à API de login serão enviadas momentos antes de iniciar o teste.</p>
@@ -26,7 +26,7 @@
                                 </div>
 
                                 <div class="card mt-3 shadow-sm">
-                                    <div class="card-body">
+                                    <div class="card-body text-justify">
                                         <h5 class="card-title">Login</h5>
 
                                         <p>A tela de autenticação deve ser apenas composta pelos campos login e senha. Quando o usuário informar esses dados você deverá verificar se os dados são válidos realizando um post para a API "<a href="https://dev.sitemercado.com.br/api/login" rel="nofollow">https://dev.sitemercado.com.br/api/login</a>" e o retorno deverá ser tratado conforme o JSON na imagem abaixo. Se o usário e senha forem válidos, você deverá redirecionar o usuário para a tela de cadastro de produtos, caso contrário, retornar a mensagem retornada pela API para o usuário.</p>
@@ -50,7 +50,7 @@
                                 </div>
 
                                 <div class="card mt-3 shadow-sm">
-                                    <div class="card-body">
+                                    <div class="card-body text-justify">
                                         <h5 class="card-title">Produtos</h5>
                                         <p>Na funcionalidade de produtos, você deverá desenvolver todas as funções de manutenção do cadastro (CRUD), inserção, edição, exclusão e listagem. Para o cadastro do produto apenas os seguintes campos são necessários: Nome do Produto, Valor de Venda e Imagem.</p>
                                         <p>Você deverá criar um banco de dados SQL Server com uma tabela chamada produto, composta pelos campos necessários para atender a tela.</p>
@@ -69,29 +69,45 @@
                             <div class="col-sm-12">
 
                                 <div class="card mt-3 shadow-sm">
-                                    <div class="card-body">
+                                    <div class="card-body text-justify">
                                         <h5 class="card-title">Arquitetura</h5>
 
-                                        <p>Foi criado uma API com arquitetura de 3 camadas, levando em consideração que o projeto <b>GeekStore.Core</b> está no mesmo nível do projeto <b>GeekStore.Business</b>, com a diferença que esse projeto processa apenas os serviços da própria arquitetura, fazendo assim com que o projeto <b>GeekStore.Business</b> seja exclusivo para o processamento das regras de negócios.</p>
+                                        <p>Foi criado uma API com arquitetura de 3 camadas para resolver o back-end. O projeto <b>GeekStore.Core</b> foi construído no mesmo nível do projeto <b>GeekStore.Business</b>, com a diferença que esse projeto processa apenas os serviços da própria arquitetura, fazendo assim com que o projeto <b>GeekStore.Business</b> seja exclusivo para o processamento das regras de negócios.</p>
 
-                                        <p>A persistência no banco de dados foi feita utilizando o entity framework, e o banco pode ser recriado usando a funcionalidade de Migrations.</p>
+                                    <div class="text-center">
+                                        <img src="/assets/arquitetura-solucao.png" class="h-75 w-75">
+                                    </div>
+
+                                    <p>Tecnologias:</p>
+
+                                    <ul>
+                                        <li>Aps.NET Core 3.1</li>
+                                        <li>Entity Frameworkc Core</li>
+                                        <li>Jwt Bearer</li>
+                                        <li>Swagger</li>
+                                        <li>SQL Server</li>
+                                        <li>Angular 10.2.0</li>
+                                        <li>RxJS</li>
+                                    </ul>
+
+                                    <p>A persistência no banco de dados foi feita utilizando o entity framework, e o banco pode ser recriado usando a funcionalidade de Migrations.</p>
 
                                     </div>
                                 </div>
 
                                 <div class="card mt-3 shadow-sm">
-                                    <div class="card-body">
+                                    <div class="card-body text-justify">
                                         <h5 class="card-title">Login</h5>
-                                          <p>Foi identificado que o link fornecido no case representaria um risco a segurança da aplicação caso fosse consumido diretamente da aplicação em Angular, pois ao retornar apenas um boleano, quaquer pessoa mal intencionada poderia facilmente simular a resposta do serviço de login para se logar na aplicação. Por conta disso o serviço de login foi encapsulado dentro da API do projeto GeekStore que trabalha devolvendo para o front-end um Token no formato JWT.</p>
+                                          <p>Foi identificado que o link fornecido no case representava um risco a segurança da aplicação caso fosse consumido diretamente da aplicação em Angular, pois ao retornar apenas um boleano, quaquer pessoa mal intencionada poderia facilmente simular a resposta do serviço de login para poder acessar a aplicação. Por conta disso o serviço de login foi encapsulado dentro do back-end atravéz de uma facade que trabalha devolvendo para o front-end um Token no formato JWT.</p>
                                     </div>
                                 </div>
 
                                 <div class="card mt-3 shadow-sm">
-                                  <div class="card-body">
+                                  <div class="card-body text-justify">
                                     <h5 class="card-title">Produtos</h5>
-                                    <p>Por uma questão de boas práticas e performace, optei por não realizar o salvamento das imagens diretamente no banco de dados. Como alternativa, foi criada a simulação do que seria um FileServer que armazena as imagens diretamente no disco e grava no banco de dados apenas a referência do arquivo.</p>
+                                    <p>Por uma questão de boas práticas e performance, optei por não realizar o salvamento das imagens diretamente no banco de dados usando base64. Como alternativa foi criada a simulação de um File Server que armazena as imagens diretamente no disco e grava no banco de dados apenas a referência do arquivo.</p>
 
-                                    <p>Vale resaltar que em uma situação real, o mais adequado seria armazenar as imagens em um CDN, um serviço do tipo blob como o oferecido pela Azure ou até mesmo um FileServer dedicado com todas as ferramentas de conformidade e segurança disponíveis.</p>
+                                    <p>Vale resaltar que em uma situação real, o mais adequado seria armazenar as imagens em um CDN, um serviço do tipo blob como o oferecido pela Azure ou até mesmo um File Server dedicado com todas as ferramentas de conformidade e segurança disponíveis.</p>
                                   </div>
                                 </div>
 

@@ -28,6 +28,7 @@ export class ListaComponent implements OnInit {
 
       if (response.success) {
           this.produtos = response.data;
+          this.produtos.sort((a, b) => (a.nome < b.nome ? -1 : 1));
       }
   }
 }

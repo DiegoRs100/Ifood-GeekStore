@@ -9,9 +9,11 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GeekStore.Api.Controllers
 {
+    [Authorize]
     [Route("api/v{version:apiVersion}/produto")]
     public class ProdutoController : MainController
     {

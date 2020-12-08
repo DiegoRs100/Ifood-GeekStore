@@ -1,7 +1,6 @@
 ﻿using GeekStore.Core.Base;
 using GeekStore.Core.Dto_s;
 using GeekStore.Core.Dto_s.Validations;
-using GeekStore.Core.Extentions.Exceptions;
 using GeekStore.Core.Interfaces.BuildingBlocks;
 using GeekStore.Core.Interfaces.Repositories;
 using GeekStore.Core.Interfaces.Services;

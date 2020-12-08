@@ -8,6 +8,7 @@ using GeekStore.Business.Interfaces.Repositories;
 using System.Threading.Tasks;
 using GeekStore.Core.Interfaces.Services;
 using System.Collections.Generic;
+using GeekStore.Core.Interfaces.Repositories;
 
 namespace GeekStore.Business.Services
 {
@@ -18,15 +19,18 @@ namespace GeekStore.Business.Services
         private readonly IProdutoRepository _produtoRepository;
         private readonly IGeekStoreDbContextService _geekStoreDbContextService;
         private readonly IFileServerService _fileServerService;
+        private readonly IImagemRepository _imagemRepository;
 
         public ProdutoService (IProdutoRepository produtoRepository,
                                IGeekStoreDbContextService geekStoreDbContextService,
                                IFileServerService fileServerService,
-                               INotificationService notificador) : base(notificador, produtoRepository)
+                               INotificationService notificador,
+                               IImagemRepository imagemRepository) : base(notificador, produtoRepository)
         {
             _produtoRepository = produtoRepository;
             _geekStoreDbContextService = geekStoreDbContextService;
             _fileServerService = fileServerService;
+            _imagemRepository = imagemRepository;
         }
 
         #endregion
@@ -81,7 +85,9 @@ namespace GeekStore.Business.Services
             if (!ExecutarValidacao(new ProdutoValidation(), produto))
                 return null;
 
-            if (_produtoRepository.ObterPorId(produto.Id).Result?.Ativo != true)
+            var produtoAtual = await _produtoRepository.ObterPorId(produto.Id);
+
+            if (produtoAtual?.Ativo != true)
             {
                 Notificar("Registro inexistente.");
                 return null;
@@ -89,10 +95,17 @@ namespace GeekStore.Business.Services
 
             var transaction = await _geekStoreDbContextService.CreateTransaction();
 
-            #region Persistindo imagem no FileServer
+            #region Persistindo imagens no FileServer
 
             if (produto.Imagem != null)
-                await _fileServerService.SalvarImagem(produto.Imagem);
+            {
+                var imagem = await _fileServerService.SalvarImagem(produto.Imagem);
+
+                if (imagem == null)
+                    return null;
+
+                await _imagemRepository.DeleteAndSave(produtoAtual.Imagem);
+            }
 
             #endregion
 
@@ -113,6 +126,7 @@ namespace GeekStore.Business.Services
             _produtoRepository?.Dispose();
             _geekStoreDbContextService?.Dispose();
             _fileServerService?.Dispose();
+            _imagemRepository?.Dispose();
         }
     }
 }
