@@ -1,72 +1,108 @@
-<!-- Page Content -->
-<header class="bg-primary py-5 mb-5">
-    <div class="container h-100">
-        <div class="row h-100 align-items-center">
-            <div class="col-lg-2">
-                <img src="https://angular.io/assets/images/logos/angular/angular.svg" />
-            </div>
-            <div class="col-lg-10">
-                <h1 class="display-5 text-white mt-5 mb-2">Desenvolvimento Avançado em Angular</h1>
-                <p class="lead mb-5 text-white">Você está pronto para aprender muito sobre este fantástico framework SPA?</p>
-            </div>
-        </div>
-    </div>
-</header>
-
 <div class="container main-container">
-    <div class="row text-center">
+    <div class="row">
+        <div class="col-sm-12">
+            <ul ngbNav #nav="ngbNav" class="nav-tabs">
 
-        <div class="col-lg-3 col-md-6 mb-4">
-            <div class="card h-100">
-                <img class="card-img-top" src="/assets/crossplat.jpg" height="164px" width="253px" alt="">
-                <div class="card-body">
-                    <h4 class="card-title">Multiplataforma</h4>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
-                </div>
-                <div class="card-footer">
-                    <a href="#" class="btn btn-primary">Saiba mais</a>
-                </div>
-            </div>
-        </div>
+                <li ngbNavItem>
+                    <a ngbNavLink>Case</a>
+                    <ng-template ngbNavContent>
+                        <div class="row">
+                            <div class="col-sm-12">
 
-        <div class="col-lg-3 col-md-6 mb-4">
-            <div class="card h-100">
-                <img class="card-img-top" src="/assets/performance.jpg" height="164px" width="253px" alt="">
-                <div class="card-body">
-                    <h4 class="card-title">Performance</h4>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo magni sapiente, tempore debitis beatae culpa natus architecto.</p>
-                </div>
-                <div class="card-footer">
-                    <a href="#" class="btn btn-primary">Saiba mais</a>
-                </div>
-            </div>
-        </div>
+                                <div class="card mt-3 shadow-sm">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Resumo</h5>
+                                        <p>O teste consiste na criação de um website composto por uma tela de login (autenticando via api) e um CRUD de   produtos.</p>
+                                        <p>As informações de acesso à API de login serão enviadas momentos antes de iniciar o teste.</p>
+                                        <p>As ferramentas e tecnologias necessárias para realização do teste:</p>
+                                        <ul>
+                                            <li>Sql Server 2014 ou superior</li>
+                                            <li>C# .net framework 4.5 ou .net core;</li>
+                                            <li>EntityFramework 6 ou core;</li>
+                                            <li>Html, Css e javascript;</li>
+                                            <li>Angular 6+;</li>
+                                        </ul>
+                                    </div>
+                                </div>
 
-        <div class="col-lg-3 col-md-6 mb-4">
-            <div class="card h-100">
-                <img class="card-img-top" src="/assets/produtividade.jpg" height="164px" width="253px" alt="">
-                <div class="card-body">
-                    <h4 class="card-title">Produtividade</h4>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
-                </div>
-                <div class="card-footer">
-                    <a href="#" class="btn btn-primary">Saiba mais</a>
-                </div>
-            </div>
-        </div>
+                                <div class="card mt-3 shadow-sm">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Login</h5>
 
-        <div class="col-lg-3 col-md-6 mb-4">
-            <div class="card h-100">
-                <img class="card-img-top" src="/assets/full_dev.jpg" height="164px" width="253px" alt="">
-                <div class="card-body">
-                    <h4 class="card-title">Funcionalidades</h4>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo magni sapiente, tempore debitis beatae culpa natus architecto.</p>
-                </div>
-                <div class="card-footer">
-                    <a href="#" class="btn btn-primary">Saiba mais</a>
-                </div>
-            </div>
+                                        <p>A tela de autenticação deve ser apenas composta pelos campos login e senha. Quando o usuário informar esses dados você deverá verificar se os dados são válidos realizando um post para a API "<a href="https://dev.sitemercado.com.br/api/login" rel="nofollow">https://dev.sitemercado.com.br/api/login</a>" e o retorno deverá ser tratado conforme o JSON na imagem abaixo. Se o usário e senha forem válidos, você deverá redirecionar o usuário para a tela de cadastro de produtos, caso contrário, retornar a mensagem retornada pela API para o usuário.</p>
+
+                                        <p>API de login:</p>
+
+                                        <ul>
+                                            <li><b>Usuário:</b> 11234567890</li>
+                                            <li><b>Senha:</b> 09876543211</li>
+                                        </ul>
+
+                                        <ul>
+                                            <li><b>Verbo:</b> POST</li>
+                                            <li><b>Encoding:</b> UTF8</li>
+                                            <li><b>Autenticação:</b> HTTP Basic Authentication</li>
+                                            <li><b>Exemplo de retorno:</b></li>
+                                        </ul>
+
+                                        <p><img src="https://raw.githubusercontent.com/superainovacoes/desenvolvedor_fullstack/master/test_response.png" alt="Exemplo de retorno - API de login" style="max-width:100%;"></p>
+                                    </div>
+                                </div>
+
+                                <div class="card mt-3 shadow-sm">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Produtos</h5>
+                                        <p>Na funcionalidade de produtos, você deverá desenvolver todas as funções de manutenção do cadastro (CRUD), inserção, edição, exclusão e listagem. Para o cadastro do produto apenas os seguintes campos são necessários: Nome do Produto, Valor de Venda e Imagem.</p>
+                                        <p>Você deverá criar um banco de dados SQL Server com uma tabela chamada produto, composta pelos campos necessários para atender a tela.</p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </ng-template>
+                </li>
+
+                <li ngbNavItem>
+                    <a ngbNavLink>Solução</a>
+                    <ng-template ngbNavContent>
+                        <div class="row">
+                            <div class="col-sm-12">
+
+                                <div class="card mt-3 shadow-sm">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Arquitetura</h5>
+
+                                        <p>Foi criado uma API com arquitetura de 3 camadas, levando em consideração que o projeto <b>GeekStore.Core</b> está no mesmo nível do projeto <b>GeekStore.Business</b>, com a diferença que esse projeto processa apenas os serviços da própria arquitetura, fazendo assim com que o projeto <b>GeekStore.Business</b> seja exclusivo para o processamento das regras de negócios.</p>
+
+                                        <p>A persistência no banco de dados foi feita utilizando o entity framework, e o banco pode ser recriado usando a funcionalidade de Migrations.</p>
+
+                                    </div>
+                                </div>
+
+                                <div class="card mt-3 shadow-sm">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Login</h5>
+                                          <p>Foi identificado que o link fornecido no case representaria um risco a segurança da aplicação caso fosse consumido diretamente da aplicação em Angular, pois ao retornar apenas um boleano, quaquer pessoa mal intencionada poderia facilmente simular a resposta do serviço de login para se logar na aplicação. Por conta disso o serviço de login foi encapsulado dentro da API do projeto GeekStore que trabalha devolvendo para o front-end um Token no formato JWT.</p>
+                                    </div>
+                                </div>
+
+                                <div class="card mt-3 shadow-sm">
+                                  <div class="card-body">
+                                    <h5 class="card-title">Produtos</h5>
+                                    <p>Por uma questão de boas práticas e performace, optei por não realizar o salvamento das imagens diretamente no banco de dados. Como alternativa, foi criada a simulação do que seria um FileServer que armazena as imagens diretamente no disco e grava no banco de dados apenas a referência do arquivo.</p>
+
+                                    <p>Vale resaltar que em uma situação real, o mais adequado seria armazenar as imagens em um CDN, um serviço do tipo blob como o oferecido pela Azure ou até mesmo um FileServer dedicado com todas as ferramentas de conformidade e segurança disponíveis.</p>
+                                  </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </ng-template>
+                </li>
+
+            </ul>
+            <div [ngbNavOutlet]="nav"></div>
         </div>
     </div>
 </div>
-<!-- Fim Content -->

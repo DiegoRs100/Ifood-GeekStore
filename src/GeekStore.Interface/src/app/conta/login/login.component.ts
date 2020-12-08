@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators, FormControlName } from '@angular/fo
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { ToastrService } from 'ngx-toastr';
+import { NgxSpinnerService } from "ngx-spinner";
 
 import { Usuario } from '../models/usuario';
 import { ContaService } from '../services/conta.service';
@@ -27,9 +28,10 @@ export class LoginComponent extends FormBaseComponent implements OnInit {
     private contaService: ContaService,
     private router: Router,
     private route: ActivatedRoute,
-    private toastr: ToastrService) {
+    private toastr: ToastrService,
+    private spinner: NgxSpinnerService) {
 
-      super();
+    super();
 
     this.validationMessages = {
       login: {
@@ -57,10 +59,14 @@ export class LoginComponent extends FormBaseComponent implements OnInit {
   }
 
   login() {
-    if (this.loginForm.dirty && this.loginForm.valid) {
-      this.usuario = Object.assign({}, this.usuario, this.loginForm.value);
 
+    if (this.loginForm.dirty && this.loginForm.valid) {
+
+      this.spinner.show();
+
+      this.usuario = Object.assign({}, this.usuario, this.loginForm.value);
       this.contaService.login(this.usuario)
+
       .subscribe(
           sucesso => {this.processarSucesso(sucesso)},
           falha => {this.processarFalha(falha)}
@@ -74,18 +80,26 @@ export class LoginComponent extends FormBaseComponent implements OnInit {
 
     this.contaService.LocalStorage.salvarDadosLocaisUsuario(response);
 
-    let toast = this.toastr.success('Login realizado com Sucesso!', 'Bem vindo!!!');
-    if(toast){
-      toast.onHidden.subscribe(() => {
-        this.returnUrl
+    setTimeout(() => {
+
+      this.spinner.hide();
+
+      this.returnUrl
         ? this.router.navigate([this.returnUrl])
         : this.router.navigate(['/produtos']);
-      });
-    }
+
+      this.toastr.success('Login realizado com Sucesso!', 'Bem vindo!!!');
+    }, 2000);
   }
 
   processarFalha(fail: any){
-    this.errors = fail.error.errors;
-    this.toastr.error('Ocorreu um erro!', 'Opa :(');
+
+    setTimeout(() => {
+
+      this.spinner.hide();
+
+      this.errors = fail.error.errors;
+      this.toastr.error('Ocorreu um erro!', 'Opa :(');
+    }, 2000);
   }
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Produto } from '../models/produto';
 import { ProdutoService } from '../services/produto.service';
-import { environment } from '../../../environments/environment';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-lista',
@@ -12,13 +12,15 @@ export class ListaComponent implements OnInit {
   public produtos: Produto[];
   errorMessage: string;
 
-  constructor(private produtoService: ProdutoService) { }
+  constructor(private produtoService: ProdutoService,
+              private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
-    this.produtoService.obterTodosProdutos()
-      .subscribe(
-        sucesso => { this.processarSucesso(sucesso) },
-        () => this.errorMessage
+
+      this.produtoService.obterTodosProdutos()
+        .subscribe(
+          sucesso => { this.processarSucesso(sucesso) },
+          () => this.errorMessage
       );
   }
 

@@ -3,6 +3,7 @@ import { FormBuilder, Validators, FormControlName } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { ToastrService } from 'ngx-toastr';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 import { ProdutoService } from '../services/produto.service';
 import { CurrencyUtils } from 'src/app/utils/currency-utils';
@@ -35,7 +36,8 @@ export class EditarComponent extends ProdutoBaseComponent implements OnInit {
     private produtoService: ProdutoService,
     private router: Router,
     private route: ActivatedRoute,
-    private toastr: ToastrService) {
+    private toastr: ToastrService,
+    private spinner: NgxSpinnerService) {
 
     super();
 
@@ -73,6 +75,8 @@ export class EditarComponent extends ProdutoBaseComponent implements OnInit {
 
     if (this.produtoForm.dirty && this.produtoForm.valid) {
 
+      this.spinner.show();
+
       this.produto = Object.assign({}, this.produto, this.produtoForm.value);
 
       if (this.imagemNome != null) {
@@ -85,7 +89,6 @@ export class EditarComponent extends ProdutoBaseComponent implements OnInit {
       else {
         this.produto.imagem = null;
       }
-
 
       this.produto.preco = CurrencyUtils.StringParaDecimal(this.produto.preco);
 
@@ -104,18 +107,24 @@ export class EditarComponent extends ProdutoBaseComponent implements OnInit {
     this.produtoForm.reset();
     this.errors = [];
 
-    let toast = this.toastr.success('Produto editado com sucesso!', 'Sucesso!');
+    setTimeout(() => {
 
-    if (toast) {
-      toast.onHidden.subscribe(() => {
-        this.router.navigate(['/produtos']);
-      });
-    }
+      this.spinner.hide();
+
+      this.router.navigate(['/produtos']);
+      this.toastr.success('Produto editado com sucesso!', 'Sucesso!');
+    }, 2000);
   }
 
   processarFalha(fail: any) {
-    this.errors = fail.error.errors;
-    this.toastr.error('Ocorreu um erro!', 'Opa :(');
+
+    setTimeout(() => {
+
+      this.spinner.hide();
+
+      this.errors = fail.error.errors;
+      this.toastr.error('Ocorreu um erro!', 'Opa :(');
+    }, 2000);
   }
 
   fileChangeEvent(event: any): void {

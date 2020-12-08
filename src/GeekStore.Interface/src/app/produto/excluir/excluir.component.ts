@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ProdutoService } from '../services/produto.service';
 
 import { ToastrService } from 'ngx-toastr';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 import { Produto } from '../models/produto';
 
@@ -17,7 +18,8 @@ export class ExcluirComponent  {
   constructor(private produtoService: ProdutoService,
       private route: ActivatedRoute,
       private router: Router,
-      private toastr: ToastrService) {
+      private toastr: ToastrService,
+      private spinner: NgxSpinnerService) {
 
       let response = this.route.snapshot.data['produto'];
 
@@ -27,6 +29,9 @@ export class ExcluirComponent  {
   }
 
   public excluirProduto() {
+
+    this.spinner.show();
+
     this.produtoService.excluirProduto(this.produto.id)
       .subscribe(
           evento => { this.sucessoExclusao(evento) },
@@ -36,16 +41,20 @@ export class ExcluirComponent  {
 
   public sucessoExclusao(evento: any) {
 
-      const toast = this.toastr.success('Produto excluido com Sucesso!', 'Good bye :D');
+      setTimeout(() => {
 
-      if (toast) {
-          toast.onHidden.subscribe(() => {
-            this.router.navigate(['/produtos']);
-          });
-      }
+          this.spinner.hide();
+
+          this.router.navigate(['/produtos']);
+          this.toastr.success('Produto excluido com Sucesso!', 'Good bye :D');
+      }, 2000);
   }
 
   public falha() {
-      this.toastr.error('Houve um erro no processamento!', 'Ops! :(');
+
+      setTimeout(() => {
+        this.spinner.hide();
+        this.toastr.error('Ocorreu um erro!', 'Opa :(');
+      }, 2000);
   }
 }

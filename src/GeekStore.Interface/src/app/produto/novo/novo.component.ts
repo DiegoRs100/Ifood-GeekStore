@@ -4,12 +4,12 @@ import { Router } from '@angular/router';
 
 import { ToastrService } from 'ngx-toastr';
 import { ImageCroppedEvent, ImageTransform, Dimensions } from 'ngx-image-cropper';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 import { ProdutoService } from '../services/produto.service';
 import { CurrencyUtils } from 'src/app/utils/currency-utils';
 import { ProdutoBaseComponent } from '../produto-form.base.component';
 import { Imagem } from '../../models/imagem';
-
 
 @Component({
   selector: 'app-novo',
@@ -33,7 +33,8 @@ export class NovoComponent extends ProdutoBaseComponent implements OnInit {
   constructor(private fb: FormBuilder,
     private produtoService: ProdutoService,
     private router: Router,
-    private toastr: ToastrService) { super(); }
+    private toastr: ToastrService,
+    private spinner: NgxSpinnerService) { super(); }
 
   ngOnInit(): void {
 
@@ -50,6 +51,8 @@ export class NovoComponent extends ProdutoBaseComponent implements OnInit {
 
   cadastrarProduto() {
     if (this.produtoForm.dirty && this.produtoForm.valid) {
+
+      this.spinner.show();
 
       this.produto = Object.assign({}, this.produto, this.produtoForm.value);
 
@@ -78,18 +81,24 @@ export class NovoComponent extends ProdutoBaseComponent implements OnInit {
     this.produtoForm.reset();
     this.errors = [];
 
-    let toast = this.toastr.success('Produto cadastrado com sucesso!', 'Sucesso!');
+    setTimeout(() => {
 
-    if (toast) {
-      toast.onHidden.subscribe(() => {
-        this.router.navigate(['/produtos']);
-      });
-    }
+      this.spinner.hide();
+
+      this.router.navigate(['/produtos']);
+      this.toastr.success('Produto cadastrado com sucesso!', 'Sucesso!');
+    }, 2000);
   }
 
   processarFalha(fail: any) {
-    this.errors = fail.error.errors;
-    this.toastr.error('Ocorreu um erro!', 'Opa :(');
+
+    setTimeout(() => {
+
+      this.spinner.hide();
+
+      this.errors = fail.error.errors;
+      this.toastr.error('Ocorreu um erro!', 'Opa :(');
+    }, 2000);
   }
 
   fileChangeEvent(event: any): void {
