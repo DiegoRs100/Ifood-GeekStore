@@ -5,9 +5,8 @@ import { HomeComponent } from './navegacao/home/home.component';
 import { NotFoundComponent } from './navegacao/not-found/not-found.component';
 import { AcessoNegadoComponent } from './navegacao/acesso-negado/acesso-negado.component';
 
-
 const routes: Routes = [
-  { path: '', redirectTo: '/conta/login', pathMatch: 'full' },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   {
     path: 'conta',
