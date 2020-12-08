@@ -11,4 +11,3 @@ export class StringUtils {
         return numero.replace(/[^0-9]/g,'');
     }
 }
-
